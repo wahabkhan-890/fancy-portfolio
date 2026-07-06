@@ -1,6 +1,6 @@
 "use client";
 
-import { useSidebarcontext } from "./SidebarContext";
+import { useSidebarContext } from "./SidebarContext";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -26,7 +26,7 @@ export const DesktopSidebar = ({
   // ============================================================
   // Context se values lo — notice board se data read karo
   // ============================================================
-  const { isOpen, setIsOpen, animate } = useSidebarcontext();
+  const { isOpen, setIsOpen, animate } = useSidebarContext();
 
   return (
     <motion.div

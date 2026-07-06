@@ -20,10 +20,10 @@ const Navbar = () => {
   const { theme, toggleTheme } = useThemeStore();
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-violet-500/20 bg-white/70 dark:bg-[#080612]/70 backdrop-blur-xl">
+    <header className="fixed top-0 z-50 w-full border-b border-primary/20 bg-white/70 dark:bg-[#080612]/70 backdrop-blur-xl">
       <nav className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-lg font-bold text-violet-500">
+        <Link href="/" className="text-lg font-bold text-primary">
           Abdul Wahab
         </Link>
 
@@ -34,8 +34,8 @@ const Navbar = () => {
               key={link.href}
               href={link.href}
               className={cn(
-                "text-sm transition-colors hover:text-violet-500",
-                pathname === link.href ? "text-violet-500 font-medium" : "text-zinc-600 dark:text-zinc-300"
+                "text-sm transition-colors hover:text-primary",
+                pathname === link.href ? "text-primary font-medium" : "text-zinc-600 dark:text-zinc-300"
               )}
             >
               {link.name}
@@ -48,7 +48,7 @@ const Navbar = () => {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="rounded-full p-2 transition-colors hover:bg-violet-500/10"
+            className="rounded-full p-2 transition-colors hover:bg-primary/10"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
@@ -57,7 +57,7 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="rounded-full p-2 transition-colors hover:bg-violet-500/10 md:hidden"
+            className="rounded-full p-2 transition-colors hover:bg-primary/10 md:hidden"
             aria-label="Toggle menu"
           >
             {isOpen ? <X size={18} /> : <Menu size={18} />}
@@ -67,7 +67,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="border-t border-violet-500/20 bg-white/70 dark:bg-[#080612]/70 backdrop-blur-xl md:hidden">
+        <div className="border-t border-primary/20 bg-white/70 dark:bg-[#080612]/70 backdrop-blur-xl md:hidden">
           <div className="container flex flex-col gap-3 py-4">
             {navLinks.map((link) => (
               <Link
@@ -75,8 +75,8 @@ const Navbar = () => {
                 href={link.href}
                 onClick={() => setIsOpen(false)}
                 className={cn(
-                  "rounded-lg px-3 py-2 text-sm transition-colors hover:bg-violet-500/10",
-                  pathname === link.href ? "text-violet-500 font-medium bg-violet-500/10" : "text-zinc-600 dark:text-zinc-300"
+                  "rounded-lg px-3 py-2 text-sm transition-colors hover:bg-primary/10",
+                  pathname === link.href ? "text-primary font-medium bg-primary/10" : "text-zinc-600 dark:text-zinc-300"
                 )}
               >
                 {link.name}

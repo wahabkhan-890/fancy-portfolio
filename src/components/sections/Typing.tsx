@@ -45,7 +45,7 @@ const Typing = () => {
   }, [text, isDeleting, wordIndex]);
 
   return (
-    <span className="text-violet-500 font-semibold">
+    <span className="text-primary font-semibold">
       {text}
       <span className={`inline-block ml-1 text-gray-400 ${isTyping ? "opacity-100" : "animate-blink"}`}>
         |

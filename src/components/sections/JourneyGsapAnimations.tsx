@@ -157,14 +157,14 @@ export default function JourneyGsapAnimations({ data }: { data: { title: string;
 
       {/* Section Header */}
       <div className="container mb-16 flex flex-col items-center text-center">
-        <div className="inline-flex items-center gap-2 rounded-full bg-violet-500/10 px-4 py-1.5 text-sm font-bold text-violet-500 mb-4">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-violet-500" />
+        <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-primary mb-4">
+          <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
           MY JOURNEY
         </div>
         <h2 className="text-2xl font-bold text-zinc-900 dark:text-white sm:text-3xl lg:text-4xl">
-          The Road I&apos;ve <span className="text-violet-500">Traveled</span>
+          The Road I&apos;ve <span className="text-primary">Traveled</span>
         </h2>
-        <div className="mt-4 h-px w-16 bg-gradient-to-r from-transparent via-violet-500 to-transparent" />
+        <div className="mt-4 h-px w-16 bg-gradient-to-r from-transparent via-primary to-transparent" />
         <p className="mt-4 max-w-xl text-sm text-zinc-600 dark:text-zinc-400 sm:text-base">
           From writing my first line of C code to shipping full-stack production apps — here&apos;s the road I&apos;ve traveled.
         </p>
@@ -207,18 +207,18 @@ export default function JourneyGsapAnimations({ data }: { data: { title: string;
             <div key={i} className="relative flex flex-col items-center py-12">
               <div
                 ref={(el) => { dotRefs.current[i] = el; }}
-                className="z-20 mb-6 flex h-14 w-14 items-center justify-center rounded-full border-2 border-violet-500 bg-[#09151e] text-lg font-bold text-violet-400"
+                className="z-20 mb-6 flex h-14 w-14 items-center justify-center rounded-full border-2 border-primary bg-[#09151e] text-lg font-bold text-primary-light"
               >
                 {item.title}
               </div>
               <div
                 ref={(el) => { cardRefs.current[i] = el; }}
                 data-side="center"
-                className="w-full rounded-2xl border border-violet-500/20 bg-white p-5 shadow-lg dark:bg-[#1a112a]"
+                className="w-full rounded-2xl border border-primary/20 bg-white p-5 shadow-lg dark:bg-[#1a112a]"
               >
                 <h3
                   ref={(el) => { titleRefs.current[i] = el; }}
-                  className="text-lg font-bold text-violet-500"
+                  className="text-lg font-bold text-primary"
                 >
                   {item.title}
                 </h3>
@@ -237,7 +237,7 @@ export default function JourneyGsapAnimations({ data }: { data: { title: string;
                 {/* CENTER DOT */}
                 <div
                   ref={(el) => { dotRefs.current[i] = el; }}
-                  className="absolute left-1/2 z-20 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-full border-2 border-violet-500 bg-[#1a3a55] text-lg font-bold text-violet-500"
+                  className="absolute left-1/2 z-20 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-full border-2 border-primary bg-[#1a3a55] text-lg font-bold text-primary"
                 >
                   {item.title}
                 </div>
@@ -264,7 +264,7 @@ export default function JourneyGsapAnimations({ data }: { data: { title: string;
                       <div
                         ref={(el) => { cardRefs.current[i] = el; }}
                         data-side="left"
-                        className="top-[115px] relative w-[90%] rounded-2xl border border-violet-500/20 bg-white p-5 shadow-lg dark:bg-[#1a112a] lg:p-6"
+                        className="top-[115px] relative w-[90%] rounded-2xl border border-primary/20 bg-white p-5 shadow-lg dark:bg-[#1a112a] lg:p-6"
                       >
                         <h3 ref={(el) => { titleRefs.current[i] = el; }} className="text-lg font-bold text-zinc-800 dark:text-white lg:text-xl">
                           {item.title}
@@ -297,7 +297,7 @@ export default function JourneyGsapAnimations({ data }: { data: { title: string;
                       <div
                         ref={(el) => { cardRefs.current[i] = el; }}
                         data-side="right"
-                        className="top-[115px] relative w-[90%] rounded-2xl border border-violet-500/20 bg-white p-5 shadow-lg dark:bg-[#1a112a] lg:p-6"
+                        className="top-[115px] relative w-[90%] rounded-2xl border border-primary/20 bg-white p-5 shadow-lg dark:bg-[#1a112a] lg:p-6"
                       >
                         <h3 ref={(el) => { titleRefs.current[i] = el; }} className="text-lg font-bold text-zinc-800 dark:text-white lg:text-xl">
                           {item.title}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase/client";
 
 interface Stats {
   projects: number;
@@ -21,20 +20,23 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const [projectsRes, highlightsRes, contactsRes, emailsRes] =
-        await Promise.all([
-          supabase.from("projects").select("*", { count: "exact", head: true }),
-          supabase.from("highlights").select("*", { count: "exact", head: true }),
-          supabase.from("contacts").select("*", { count: "exact", head: true }),
-          supabase.from("emails").select("*", { count: "exact", head: true }),
+      try {
+        const [pRes, hRes, cRes, eRes] = await Promise.all([
+          fetch("/api/projects").then(r => r.json()),
+          fetch("/api/highlights").then(r => r.json()),
+          fetch("/api/contacts").then(r => r.json()),
+          fetch("/api/emails").then(r => r.json()),
         ]);
 
-      setStats({
-        projects: projectsRes.count || 0,
-        highlights: highlightsRes.count || 0,
-        contacts: contactsRes.count || 0,
-        emails: emailsRes.count || 0,
-      });
+        setStats({
+          projects: Array.isArray(pRes) ? pRes.length : 0,
+          highlights: Array.isArray(hRes) ? hRes.length : 0,
+          contacts: Array.isArray(cRes) ? cRes.length : 0,
+          emails: Array.isArray(eRes) ? eRes.length : 0,
+        });
+      } catch (err) {
+        console.error("Stats fetch error:", err);
+      }
       setLoading(false);
     };
 
@@ -54,7 +56,7 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-violet-500">Dashboard</h1>
+      <h1 className="text-3xl font-bold text-primary">Dashboard</h1>
       <p className="mt-2 text-zinc-600 dark:text-zinc-400">
         Welcome to Admin Panel!
       </p>
@@ -63,12 +65,12 @@ const AdminDashboard = () => {
         {cards.map((card) => (
           <div
             key={card.label}
-            className="rounded-2xl border border-violet-500/20 bg-white p-6 shadow-sm dark:bg-[#0d0a17] dark:border-violet-900/40"
+            className="rounded-2xl border border-primary/20 bg-white p-6 shadow-sm dark:bg-[#0d0a17] dark:border-primary/40"
           >
             <p className="text-sm text-zinc-500 dark:text-zinc-400">
               {card.label}
             </p>
-            <p className="mt-2 text-3xl font-bold text-violet-500">
+            <p className="mt-2 text-3xl font-bold text-primary">
               {card.value}
             </p>
           </div>

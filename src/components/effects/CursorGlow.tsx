@@ -24,7 +24,7 @@ const CursorGlow = () => {
         transform: "translate(-50%, -50%)",
       }}
     >
-      <div className="rounded-full shadow-[0_0_120px_80px_rgba(139,92,246,0.12)]" />
+      <div className="rounded-full shadow-[0_0_120px_80px_rgba(var(--primary-rgb),0.12)]" />
     </div>
   );
 };

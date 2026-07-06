@@ -45,12 +45,12 @@ const SkillBar = ({ name, percent, badge, delay }: SkillBarProps) => {
             {name}
           </span>
           {badge && (
-            <span className="rounded-full bg-violet-500/15 px-2 py-0.5 text-[10px] font-bold text-violet-500 border border-violet-500/30">
+            <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-bold text-primary border border-primary/30">
               {badge}
             </span>
           )}
         </div>
-        <span className="text-sm font-bold text-violet-500 2xl:text-base">
+        <span className="text-sm font-bold text-primary 2xl:text-base">
           {percent}%
         </span>
       </div>
@@ -59,16 +59,16 @@ const SkillBar = ({ name, percent, badge, delay }: SkillBarProps) => {
       <div className="relative h-2.5 w-full rounded-full bg-zinc-100 dark:bg-zinc-800/60 overflow-hidden">
         {/* Animated fill */}
         <motion.div
-          className="absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-violet-600 to-violet-400"
+          className="absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-primary-hover to-primary-light"
           initial={{ width: 0 }}
           animate={controls}
           style={{
-            boxShadow: "0 0 10px rgba(139,92,246,0.5)",
+            boxShadow: "0 0 10px rgba(var(--primary-rgb),0.5)",
           }}
         />
         {/* Breathing glow overlay */}
         <motion.div
-          className="absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-violet-400/30 to-transparent"
+          className="absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-primary-light/30 to-transparent"
           initial={{ width: 0 }}
           animate={
             isInView
@@ -118,7 +118,7 @@ const SkillsProgress = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-violet-500 font-semibold text-lg inline-block border-s-2 border-violet-500 ps-2 leading-6">
+          <h2 className="text-primary font-semibold text-lg inline-block border-s-2 border-primary ps-2 leading-6">
             SKILLS
           </h2>
           <p className="mt-2 text-sm 2xl:text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl">

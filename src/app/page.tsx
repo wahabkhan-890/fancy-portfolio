@@ -6,6 +6,7 @@ import ProjectsSection from "@/components/sections/ProjectsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import NewsletterSection from "@/components/sections/NewsletterSection";
 import CTA from "@/components/sections/CTA";
+import WorkProcess  from "@/components/sections/WorkProcess";
 
 const Home = () => (
   <>
@@ -14,6 +15,7 @@ const Home = () => (
     <FeaturesSection />
     <SkillsSection />
     <ProjectsSection />
+    <WorkProcess/>
     <ContactSection />
     <NewsletterSection />
     <CTA />

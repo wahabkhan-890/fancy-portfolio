@@ -50,7 +50,7 @@ const StrengthsSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-violet-500 font-semibold text-lg inline-block border-s-2 border-violet-500 ps-2 leading-6">
+          <h2 className="text-primary font-semibold text-lg inline-block border-s-2 border-primary ps-2 leading-6">
             STRENGTHS
           </h2>
           <p className="mt-2 text-sm 2xl:text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl">
@@ -68,29 +68,29 @@ const StrengthsSection = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className="group relative flex flex-col gap-4 rounded-2xl p-6 overflow-hidden
-                border border-neutral-200 dark:border-violet-900/40
+                border border-neutral-200 dark:border-primary/40
                 bg-white dark:bg-[#0d0a17]
-                shadow-[0_4px_24px_0_rgba(94,14,192,0.10)] dark:shadow-[0_4px_40px_0_rgba(94,14,192,0.22)]
-                hover:border-violet-500/60 hover:bg-violet-50 dark:hover:bg-violet-950/40
-                hover:shadow-[0_8px_48px_0_rgba(139,92,246,0.35)]
+                shadow-[0_4px_24px_0_rgba(var(--primary-rgb),0.10)] dark:shadow-[0_4px_40px_0_rgba(var(--primary-rgb),0.22)]
+                hover:border-primary/60 hover:bg-primary-bg dark:hover:bg-primary-hover/40
+                hover:shadow-[0_8px_48px_0_rgba(var(--primary-rgb),0.35)]
                 hover:-translate-y-1 transition-all duration-300 cursor-default"
             >
               {/* Hover background accent */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-violet-500/0 to-violet-500/0 group-hover:from-violet-500/5 group-hover:to-violet-500/10 transition-all duration-300 pointer-events-none" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 to-primary/0 group-hover:from-primary/5 group-hover:to-primary/10 transition-all duration-300 pointer-events-none" />
 
               {/* Icon */}
               <div className="relative flex h-12 w-12 items-center justify-center rounded-xl
-                bg-violet-100 text-violet-600
-                dark:bg-violet-500/15 dark:text-violet-400
-                group-hover:bg-violet-500 group-hover:text-white
-                dark:group-hover:bg-violet-500 dark:group-hover:text-white
+                bg-primary-bg text-primary-hover
+                dark:bg-primary/15 dark:text-primary-light
+                group-hover:bg-primary group-hover:text-white
+                dark:group-hover:bg-primary dark:group-hover:text-white
                 transition-all duration-300 group-hover:scale-110">
                 <item.icon size={22} />
               </div>
 
               {/* Title */}
               <h3 className="text-base font-bold text-zinc-900 dark:text-white
-                group-hover:text-violet-600 dark:group-hover:text-violet-300
+                group-hover:text-primary-hover dark:group-hover:text-primary-light
                 transition-colors duration-300 2xl:text-lg">
                 {item.title}
               </h3>

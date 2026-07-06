@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSidebarcontext } from "./SidebarContext";
+import { useSidebarContext } from "./SidebarContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -26,7 +26,7 @@ export const MobileSidebar = ({
 }: MobileSidebarProps) => {
   
   // Context se values lo
-  const { isOpen, setIsOpen, animate } = useSidebarcontext();
+  const { isOpen, setIsOpen } = useSidebarContext();
   
   // Current route — change pe sidebar close karna
   const pathname = usePathname();

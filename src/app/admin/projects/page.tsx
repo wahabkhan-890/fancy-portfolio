@@ -1,17 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  tech: string;
-  category: string;
-  preview: string;
-  github: string;
-}
+import type { Project } from "@/types";
 
 const emptyForm = {
   title: "",
@@ -19,6 +9,7 @@ const emptyForm = {
   image: "",
   tech: "",
   category: "",
+   type: "", 
   preview: "",
   github: "",
 };
@@ -34,14 +25,28 @@ const AdminProjects = () => {
 
   const fetchProjects = async () => {
     setLoading(true);
-    const res = await fetch("/api/projects");
-    const data = await res.json();
-    setProjects(Array.isArray(data) ? data : []);
+    try {
+      const res = await fetch("/api/projects");
+      const data: unknown = await res.json();
+
+      if (!res.ok) {
+        throw new Error("Unable to load projects");
+      }
+
+      setProjects(Array.isArray(data) ? (data as Project[]) : []);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Unable to load projects");
+      setProjects([]);
+    }
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchProjects();
+    const loadProjects = async () => {
+      await fetchProjects();
+    };
+
+    loadProjects();
   }, []);
 
   const openAddForm = () => {
@@ -59,6 +64,7 @@ const AdminProjects = () => {
       image: project.image || "",
       tech: project.tech || "",
       category: project.category || "",
+      type: project.type || "",
       preview: project.preview || "",
       github: project.github || "",
     });
@@ -133,7 +139,7 @@ const AdminProjects = () => {
   };
 
   const inputClass =
-    "mb-2 w-full rounded-xl border border-violet-500/30 bg-white px-4 py-2 text-sm text-zinc-900 outline-none transition focus:border-violet-500 dark:bg-white/5 dark:text-white";
+    "mb-2 w-full rounded-xl border border-primary/30 bg-white px-4 py-2 text-sm text-zinc-900 outline-none transition focus:border-primary dark:bg-white/5 dark:text-white";
 
   if (loading) return <p className="text-zinc-500 dark:text-zinc-400">Loading projects...</p>;
 
@@ -141,10 +147,10 @@ const AdminProjects = () => {
     <div>
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-violet-500">Projects</h1>
+        <h1 className="text-3xl font-bold text-primary">Projects</h1>
         <button
           onClick={openAddForm}
-          className="rounded-xl bg-violet-500 px-4 py-2 text-sm font-medium text-white hover:bg-violet-600 transition"
+          className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-hover transition"
         >
           + Add Project
         </button>
@@ -158,7 +164,7 @@ const AdminProjects = () => {
           projects.map((project) => (
             <div
               key={project.id}
-              className="flex items-center justify-between rounded-xl border border-violet-500/20 bg-white p-4 shadow-sm dark:bg-[#0d0a17] dark:border-violet-900/40"
+              className="flex items-center justify-between rounded-xl border border-primary/20 bg-white p-4 shadow-sm dark:bg-[#0d0a17] dark:border-primary/40"
             >
               <div>
                 <h3 className="font-semibold text-zinc-900 dark:text-white">{project.title}</h3>
@@ -188,9 +194,9 @@ const AdminProjects = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <form
             onSubmit={handleSave}
-            className="w-full max-w-lg rounded-2xl border border-violet-500/20 bg-white p-6 shadow-2xl dark:bg-[#0d0a17] dark:border-violet-900/40"
+            className="w-full max-w-lg rounded-2xl border border-primary/20 bg-white p-6 shadow-2xl dark:bg-[#0d0a17] dark:border-primary/40"
           >
-            <h2 className="mb-4 text-xl font-bold text-violet-500">
+            <h2 className="mb-4 text-xl font-bold text-primary">
               {editingProject ? "Edit Project" : "Add Project"}
             </h2>
 
@@ -222,7 +228,7 @@ const AdminProjects = () => {
                 type="file"
                 accept="image/*"
                 onChange={handleImageUpload}
-                className="mb-2 w-full rounded-xl border border-violet-500/30 bg-white px-4 py-2 text-sm text-zinc-700 outline-none dark:bg-white/5 dark:text-zinc-300"
+                className="mb-2 w-full rounded-xl border border-primary/30 bg-white px-4 py-2 text-sm text-zinc-700 outline-none dark:bg-white/5 dark:text-zinc-300"
               />
               {form.image && (
                 <p className="mb-2 text-xs text-green-500">✅ Image uploaded!</p>
@@ -235,12 +241,20 @@ const AdminProjects = () => {
               onChange={(e) => setForm({ ...form, tech: e.target.value })}
               className={inputClass}
             />
-            <input
-              placeholder="Category"
-              value={form.category}
-              onChange={(e) => setForm({ ...form, category: e.target.value })}
-              className={inputClass}
-            />
+            <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className={inputClass}>
+              <option value="">Select Level</option>
+  <option value="Top">⭐ Top</option>
+  <option value="Mid">📊 Mid</option>
+  <option value="Low">📌 Low</option>
+</select>
+            
+            <select value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} className={inputClass} required>
+  <option value="">Select Type</option>
+  <option value="All">🌐 All</option>
+  <option value="Frontend">🎨 Frontend</option>
+  <option value="Backend">⚙️ Backend</option>
+  <option value="Full Stack">🔧 Full Stack</option>
+</select>
             <input
               placeholder="Preview URL"
               value={form.preview}
@@ -264,14 +278,14 @@ const AdminProjects = () => {
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="rounded-xl border border-violet-500/30 px-4 py-2 text-sm text-violet-500 hover:bg-violet-500/10 transition"
+                className="rounded-xl border border-primary/30 px-4 py-2 text-sm text-primary hover:bg-primary/10 transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={saving}
-                className="rounded-xl bg-violet-500 px-4 py-2 text-sm font-medium text-white hover:bg-violet-600 disabled:opacity-50 transition"
+                className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-hover disabled:opacity-50 transition"
               >
                 {saving ? "Saving..." : editingProject ? "Update" : "Create"}
               </button>

@@ -20,8 +20,8 @@ const FAQSection = () => {
   return (
     <section className="w-full py-20 container">
       <div className="max-w-4xl mx-auto space-y-6">
-        <h2 className="text-violet-500 font-semibold text-lg 2xl:text-2xl inline-block border-s-2 border-violet-500 ps-2 mb-2 leading-6">FAQ</h2>
-        <p className="text-violet-400 dark:text-violet-300 text-sm 2xl:text-lg">Frequently Asked Questions about my work and process.</p>
+        <h2 className="text-primary font-semibold text-lg 2xl:text-2xl inline-block border-s-2 border-primary ps-2 mb-2 leading-6">FAQ</h2>
+        <p className="text-primary-light dark:text-primary-light text-sm 2xl:text-lg">Frequently Asked Questions about my work and process.</p>
 
         <div className="mt-6 space-y-4">
           {faqs.map((faq, index) => {
@@ -29,12 +29,12 @@ const FAQSection = () => {
             return (
               <div
                 key={index}
-                className="border border-violet-500/30 rounded-xl bg-gradient-to-br from-violet-500/20 to-transparent backdrop-blur-sm p-4 cursor-pointer"
+                className="border border-primary/30 rounded-xl bg-gradient-to-br from-primary/20 to-transparent backdrop-blur-sm p-4 cursor-pointer"
                 onClick={() => setOpenIndex(isOpen ? null : index)}
               >
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm md:text-base 2xl:text-xl font-medium text-zinc-800 dark:text-zinc-200">{faq.question}</h3>
-                  <span className="text-violet-500">
+                  <span className="text-primary">
                     <motion.span animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.2, ease: "easeInOut" }} className="inline-block">
                       <FiPlus size={18} />
                     </motion.span>

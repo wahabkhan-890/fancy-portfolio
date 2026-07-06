@@ -2,34 +2,23 @@
 
 import { useState } from "react";
 import ProjectCard from "@/components/ui/ProjectCard";
-
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  tech: string;
-  category: string;
-  preview: string;
-  github: string;
-}
+import type { Project } from "@/types";
 
 const ProjectsGrid = ({ projects }: { projects: Project[] }) => {
   const [filter, setFilter] = useState("All");
   const categories = ["All", "Full Stack", "Frontend", "Backend"];
 
-  const filtered = filter === "All" ? projects : projects.filter((p) => p.category === filter);
+  const filtered = filter === "All" ? projects : projects.filter((p) => p.type === filter);
 
   return (
     <>
-      {/* Filter Buttons */}
       <div className="mb-8 flex flex-wrap gap-2">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setFilter(cat)}
             className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-              filter === cat ? "bg-violet-500 text-white" : "bg-violet-500/10 text-violet-500"
+              filter === cat ? "bg-primary text-white" : "bg-primary/10 text-primary"
             }`}
           >
             {cat}
@@ -37,7 +26,6 @@ const ProjectsGrid = ({ projects }: { projects: Project[] }) => {
         ))}
       </div>
 
-      {/* Grid */}
       {filtered.length === 0 ? (
         <p className="text-center text-zinc-500">No projects found.</p>
       ) : (

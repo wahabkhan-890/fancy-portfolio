@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSidebarcontext } from "./SidebarContext";
+import { useSidebarContext } from "./SidebarContext";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -34,7 +34,7 @@ export const SidebarLink = ({
 }: SidebarLinkProps) => {
   
   // Context se values lo
-  const { isOpen, animate } = useSidebarcontext();
+  const { isOpen, animate } = useSidebarContext();
 
   return (
     <Link
@@ -50,7 +50,7 @@ export const SidebarLink = ({
         // Base styles
         "flex items-center gap-2 rounded-lg py-2 transition-all duration-200",
         // Hover effect
-        "hover:bg-violet-500/10 dark:hover:bg-violet-500/35",
+        "hover:bg-primary/10 dark:hover:bg-primary/35",
         // Jab expanded ho — left padding
         isOpen ? "ps-2" : "",
         // Parent ki extra classes

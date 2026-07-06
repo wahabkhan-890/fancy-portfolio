@@ -43,10 +43,10 @@ const ContactForm = () => {
 
         {/* Left: Contact Form */}
         <div className="w-full">
-          <h2 className="text-violet-500 font-semibold text-lg 2xl:text-2xl inline-block border-s-2 border-violet-500 ps-2 leading-6">
+          <h2 className="text-primary font-semibold text-lg 2xl:text-2xl inline-block border-s-2 border-primary ps-2 leading-6">
             CONTACT ME
           </h2>
-          <p className="text-violet-400 dark:text-violet-300 mt-2 text-sm 2xl:text-lg max-w-md">
+          <p className="text-primary-light dark:text-primary-light mt-2 text-sm 2xl:text-lg max-w-md">
             Send me a message and I&apos;ll get back to you as soon as possible.
           </p>
 
@@ -55,24 +55,24 @@ const ContactForm = () => {
               name="name"
               type="text"
               placeholder="Your Name"
-              className="w-full p-3 rounded-lg outline-none text-sm 2xl:text-lg bg-gradient-to-br from-violet-500/20 to-transparent border border-violet-500/30 backdrop-blur-sm focus:border-violet-500/70"
+              className="w-full p-3 rounded-lg outline-none text-sm 2xl:text-lg bg-gradient-to-br from-primary/20 to-transparent border border-primary/30 backdrop-blur-sm focus:border-primary/70"
             />
             <input
               name="email"
               type="email"
               placeholder="Your Email"
-              className="w-full p-3 rounded-lg outline-none text-sm 2xl:text-lg bg-gradient-to-br from-violet-500/20 to-transparent border border-violet-500/30 backdrop-blur-sm focus:border-violet-500/70"
+              className="w-full p-3 rounded-lg outline-none text-sm 2xl:text-lg bg-gradient-to-br from-primary/20 to-transparent border border-primary/30 backdrop-blur-sm focus:border-primary/70"
             />
             <textarea
               name="message"
               rows={5}
               placeholder="Your Message"
-              className="w-full p-3 rounded-lg outline-none text-sm 2xl:text-lg bg-gradient-to-br from-violet-500/20 to-transparent border border-violet-500/30 backdrop-blur-sm focus:border-violet-500/70 resize-none"
+              className="w-full p-3 rounded-lg outline-none text-sm 2xl:text-lg bg-gradient-to-br from-primary/20 to-transparent border border-primary/30 backdrop-blur-sm focus:border-primary/70 resize-none"
             ></textarea>
             <button
               type="submit"
               disabled={isLoading}
-              className="w-fit ms-auto px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-md 2xl:text-lg rounded-lg bg-violet-500 text-white font-semibold transition-transform duration-300 disabled:opacity-50"
+              className="w-fit ms-auto px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-md 2xl:text-lg rounded-lg bg-primary text-white font-semibold transition-transform duration-300 disabled:opacity-50"
             >
               {isLoading ? "Sending..." : "Send Message"}
             </button>
@@ -81,9 +81,9 @@ const ContactForm = () => {
 
         {/* Right: Contact Info Card */}
         <div className="relative hidden lg:flex items-center justify-center">
-          <div className="absolute w-[520px] h-[520px] rounded-full bg-violet-500/20 blur-3xl" />
+          <div className="absolute w-[520px] h-[520px] rounded-full bg-primary/20 blur-3xl" />
 
-          <div className="relative w-full max-w-md rounded-3xl p-8 border border-violet-500/30 bg-gradient-to-br from-violet-500/20 to-transparent backdrop-blur-sm space-y-6">
+          <div className="relative w-full max-w-md rounded-3xl p-8 border border-primary/30 bg-gradient-to-br from-primary/20 to-transparent backdrop-blur-sm space-y-6">
             <div>
               <h3 className="text-xl 2xl:text-2xl font-semibold text-zinc-900 dark:text-white">
                 Contact Information

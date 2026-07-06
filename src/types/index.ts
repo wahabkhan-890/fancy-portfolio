@@ -12,12 +12,13 @@ export interface Project {
   title: string;
   description: string;
   image: string;
-  tech: string[];
-  category: "Top" | "Advance" | "Intermediate" | "Beginner";
+  tech: string;
+  category: string;
+   type: string;
   preview?: string;
   github?: string;
   video?: string;
-  created_at: string;
+  created_at?: string;
 }
 
 export interface Skill {
@@ -31,4 +32,22 @@ export interface SocialLinks {
   github: string;
   whatsapp: string;
   email: string;
+}
+
+export interface Highlight {
+  id: number;
+  title: string;
+  description: string;
+  image: string;
+  date: string;
+  icon: string;
+  created_at?: string;
+}
+
+export interface Contact {
+  id: number;
+  name: string;
+  email: string;
+  message: string;
+  created_at: string;
 }

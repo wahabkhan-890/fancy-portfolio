@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GlassCard from "@/components/ui/GlassCard";
 import {
   Code2,
@@ -10,6 +15,7 @@ import {
   Rocket,
 } from "lucide-react";
 
+gsap.registerPlugin(ScrollTrigger);
 
 const features = [
   {
@@ -46,7 +52,7 @@ const features = [
     title: "Design to Production",
     description:
       "Translating Figma designs into responsive, pixel-accurate components with proper spacing, typography, and visual hierarchy.",
-    icon:  PenTool,
+    icon: PenTool,
   },
   {
     title: "Performance First",
@@ -62,44 +68,94 @@ const features = [
   },
 ];
 
-const FeaturesSection = () => (
-  <section id="features" className="py-20 lg:py-28">
-    <div className="container">
-      {/* Section Header */}
-      <h2 className="text-violet-500 font-semibold text-lg inline-block border-s-2 border-violet-500 ps-2 leading-6">
-        FEATURES
-      </h2>
-      <p className="mt-2 text-sm 2xl:text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl">
-        Modern frontend expertise with reusable components, smooth animations,
-        API integrations, and complete end-to-end project delivery.
-      </p>
+const FeaturesSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-      {/* Features Grid */}
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {features.map((feature) => (
-          <GlassCard
-            key={feature.title}
-            className="group flex flex-col gap-4 p-6 transition-all duration-300 hover:from-violet-500/30 hover:to-violet-500/10 hover:border-violet-500/50 hover:shadow-[0_24px_80px_-30px_rgba(139,92,246,0.6)]"
-          >
-            {/* Icon */}
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-100 text-violet-600 transition-colors duration-300 group-hover:bg-violet-500 group-hover:text-white dark:bg-violet-500/15 dark:text-violet-400 dark:group-hover:bg-violet-500 dark:group-hover:text-white">
-              <feature.icon size={20} />
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      cardRefs.current.forEach((card, i) => {
+        if (!card) return;
+
+        // Even cards (0,2,4,6) → enter from RIGHT
+        // Odd cards (1,3,5,7) → enter from LEFT
+        const fromX = i % 2 === 0 ? 80 : -80;
+
+        gsap.set(card, { opacity: 0, x: fromX, y: 20 });
+
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top 88%",
+          onEnter: () => {
+            gsap.to(card, {
+              opacity: 1,
+              x: 0,
+              y: 0,
+              duration: 0.7,
+              ease: "power3.out",
+              delay: i * 0.06,
+            });
+          },
+          onLeaveBack: () => {
+            gsap.to(card, {
+              opacity: 0,
+              x: fromX,
+              y: 20,
+              duration: 0.3,
+              ease: "power2.in",
+            });
+          },
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section id="features" ref={sectionRef} className="py-20 lg:py-28">
+      <div className="container">
+        {/* Section Header */}
+        <h2 className="text-primary font-semibold text-lg inline-block border-s-2 border-primary ps-2 leading-6">
+          FEATURES
+        </h2>
+        <p className="mt-2 text-sm 2xl:text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl">
+          Modern frontend expertise with reusable components, smooth animations,
+          API integrations, and complete end-to-end project delivery.
+        </p>
+
+        {/* Features Grid */}
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {features.map((feature, i) => (
+            <div
+              key={feature.title}
+              ref={(el) => {
+                cardRefs.current[i] = el;
+              }}
+              className="group h-full"
+            >
+              <GlassCard className="group flex flex-col gap-4 p-6 h-full transition-all duration-300 hover:border-primary/50 hover:shadow-[0_20px_70px_-25px_rgba(var(--primary-rgb),0.4)] hover:-translate-y-1">
+                {/* Icon */}
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-bg text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
+                  <feature.icon size={20} />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-base 2xl:text-lg font-bold text-zinc-900 transition-colors duration-300 group-hover:text-primary dark:text-white">
+                  {feature.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm 2xl:text-base leading-relaxed text-zinc-600 transition-colors duration-300 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-200">
+                  {feature.description}
+                </p>
+              </GlassCard>
             </div>
-
-            {/* Title */}
-            <h3 className="text-base 2xl:text-lg font-bold text-zinc-900 transition-colors duration-300 group-hover:text-violet-600 dark:text-white dark:group-hover:text-violet-300">
-              {feature.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-sm 2xl:text-base leading-relaxed text-zinc-600 transition-colors duration-300 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-200">
-              {feature.description}
-            </p>
-          </GlassCard>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default FeaturesSection;

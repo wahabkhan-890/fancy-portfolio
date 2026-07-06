@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import GlassCard from "@/components/ui/GlassCard";
 import {
   SiReact,
@@ -15,7 +17,9 @@ import {
   SiGit,
   SiSocketdotio,
 } from "react-icons/si";
-import { TbBrandVercel, TbComponents } from "react-icons/tb";
+import { TbComponents } from "react-icons/tb";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
   {
@@ -92,44 +96,94 @@ const skills = [
   },
 ];
 
-const SkillsSection = () => (
-  <section id="skills" className="py-20 lg:py-28">
-    <div className="container">
-      {/* Section Header */}
-      <h2 className="text-violet-500 font-semibold text-lg inline-block border-s-2 border-violet-500 ps-2 leading-6">
-        TECH STACK
-      </h2>
-      <p className="mt-2 text-sm 2xl:text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl">
-        Current stack spanning frontend delivery, backend growth, admin
-        systems, real-time features, and production deployment.
-      </p>
+const SkillsSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-      {/* Skills Grid */}
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {skills.map((skill) => (
-          <GlassCard
-            key={skill.name}
-            className="group flex flex-col items-center gap-4 p-6 text-center transition-all duration-300 hover:!bg-violet-500/20 hover:!border-violet-400/50 hover:shadow-[0_20px_70px_-25px_rgba(139,92,246,0.5)] hover:-translate-y-1"
-          >
-            {/* Icon */}
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-100 text-violet-600 transition-all duration-300 group-hover:bg-violet-500 group-hover:text-white group-hover:scale-110 group-hover:shadow-lg dark:bg-violet-500/15 dark:text-violet-400 dark:group-hover:bg-violet-500 dark:group-hover:text-white">
-              <skill.icon size={26} />
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      cardRefs.current.forEach((card, i) => {
+        if (!card) return;
+
+        // Even cards (0,2,4...) → enter from RIGHT
+        // Odd cards (1,3,5...) → enter from LEFT
+        const fromX = i % 2 === 0 ? 80 : -80;
+
+        gsap.set(card, { opacity: 0, x: fromX, y: 20 });
+
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top 90%",
+          onEnter: () => {
+            gsap.to(card, {
+              opacity: 1,
+              x: 0,
+              y: 0,
+              duration: 0.7,
+              ease: "power3.out",
+              delay: i * 0.05,
+            });
+          },
+          onLeaveBack: () => {
+            gsap.to(card, {
+              opacity: 0,
+              x: fromX,
+              y: 20,
+              duration: 0.3,
+              ease: "power2.in",
+            });
+          },
+        });
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section id="skills" ref={sectionRef} className="py-20 lg:py-28">
+      <div className="container">
+        {/* Section Header */}
+        <h2 className="text-primary font-semibold text-lg inline-block border-s-2 border-primary ps-2 leading-6">
+          TECH STACK
+        </h2>
+        <p className="mt-2 text-sm 2xl:text-lg text-zinc-600 dark:text-zinc-300 max-w-2xl">
+          Current stack spanning frontend delivery, backend growth, admin
+          systems, real-time features, and production deployment.
+        </p>
+
+        {/* Skills Grid */}
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {skills.map((skill, i) => (
+            <div
+              key={skill.name}
+              ref={(el) => {
+                cardRefs.current[i] = el;
+              }}
+              className="group h-full"
+            >
+              <GlassCard className="group flex flex-col items-center gap-4 p-6 text-center h-full transition-all duration-300 hover:!bg-primary/20 hover:!border-primary-light/50 hover:shadow-[0_20px_70px_-25px_rgba(var(--primary-rgb),0.5)] hover:-translate-y-1">
+                {/* Icon */}
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-bg text-primary-hover transition-all duration-300 group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-lg dark:bg-primary/15 dark:text-primary-light dark:group-hover:bg-primary dark:group-hover:text-white">
+                  <skill.icon size={26} />
+                </div>
+
+                {/* Name */}
+                <h3 className="text-sm 2xl:text-base font-bold text-zinc-800 transition-colors duration-300 group-hover:text-primary-hover dark:text-zinc-200 dark:group-hover:text-primary-light">
+                  {skill.name}
+                </h3>
+
+                {/* Description */}
+                <p className="text-xs 2xl:text-sm leading-relaxed text-zinc-500 transition-colors duration-300 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-200">
+                  {skill.description}
+                </p>
+              </GlassCard>
             </div>
-
-            {/* Name */}
-            <h3 className="text-sm 2xl:text-base font-bold text-zinc-800 transition-colors duration-300 group-hover:text-violet-600 dark:text-zinc-200 dark:group-hover:text-violet-300">
-              {skill.name}
-            </h3>
-
-            {/* Description */}
-            <p className="text-xs 2xl:text-sm leading-relaxed text-zinc-500 transition-colors duration-300 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-200">
-              {skill.description}
-            </p>
-          </GlassCard>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default SkillsSection;

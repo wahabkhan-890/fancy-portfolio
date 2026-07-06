@@ -1,28 +1,31 @@
 import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
+import "./globals.css";
+import Sidebar from "@/components/layout/Sidebar";
+import Footer from "@/components/layout/Footer";
+import CursorGlow from "@/components/effects/CursorGlow";
+import ThemeToggle from "@/components/ui/ThemeToggle";
+import { ThemeScript } from "@/components/layout/ThemeScript";
+import { siteMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: {
-    default: "Abdul Wahab | Full-Stack Developer",
-    template: "%s | Abdul Wahab",
-  },
-  description:
-    "Full-stack developer portfolio showcasing React, Next.js, Supabase projects. Open for freelance and full-time opportunities.",
-  keywords: ["React", "Next.js", "Supabase", "Full Stack", "Developer", "Portfolio"],
-  authors: [{ name: "Abdul Wahab" }],
-  openGraph: {
-    title: "Abdul Wahab | Full-Stack Developer",
-    description: "Full-stack developer portfolio — React, Next.js, Supabase projects.",
-    url: "https://your-domain.vercel.app",
-    siteName: "Abdul Wahab Portfolio",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Abdul Wahab | Full-Stack Developer",
-    description: "Full-stack developer portfolio.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata: Metadata = siteMetadata;
+
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
+  <html lang="en" suppressHydrationWarning>
+    <head>
+      <ThemeScript />
+    </head>
+    <body>
+      <Toaster position="top-right" />
+      <CursorGlow />
+      <ThemeToggle />
+      <Sidebar />
+      <main className="min-h-screen">
+        {children}
+        <Footer />
+      </main>
+    </body>
+  </html>
+);
+
+export default RootLayout;
