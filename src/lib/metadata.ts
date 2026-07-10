@@ -9,6 +9,9 @@ export const siteMetadata: Metadata = {
     "Full-stack developer portfolio showcasing React, Next.js, Supabase projects.",
   keywords: ["React", "Next.js", "Supabase", "Full Stack", "Developer"],
   authors: [{ name: "Abdul Wahab" }],
+  icons: {
+    icon: "/images/profile.jpg",
+  },
   openGraph: {
     title: "Abdul Wahab | Full-Stack Developer",
     description: "Full-stack developer portfolio.",
