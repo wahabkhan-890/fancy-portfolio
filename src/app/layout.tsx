@@ -18,7 +18,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => (
     <body>
       <Toaster position="top-right" />
       <CursorGlow />
-      <ThemeToggle />
+      
+      {/* Theme Toggle — Fixed Top-Right (Mobile + Desktop dono pe dikhega) */}
+      <div className="fixed top-5 right-5 z-50">
+        <ThemeToggle />
+      </div>
+      
       <Sidebar />
       <main className="min-h-screen">
         {children}
